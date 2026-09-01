@@ -4,19 +4,20 @@ Post.propTypes = {
 	title: PropTypes.string.isRequired,
 	contents: PropTypes.string,
 	author: PropTypes.string,
+	tags: PropTypes.arrayOf(PropTypes.string),
 }
 
-export function Post({ title, contents, author }) {
+export function Post({ title, contents, author, tags = [] }) {
 	return (
-		<article>
-			<h3>{title}</h3>
-			<div>{contents}</div>
+		<article className="post-card">
+			<h3 className="post-title">{title}</h3>
+			<div className="post-contents">{contents}</div>
 			{author && (
-				<em>
-					<br />
+				<em className="post-byline">
 					Written by <strong>{author}</strong>
 				</em>
 			)}
+			{tags.length > 0 && <p className="post-tags">{tags.join(', ')}</p>}
 		</article>
 	)
 }

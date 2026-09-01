@@ -68,6 +68,7 @@ export function postsRoutes(app) {
 	app.delete('/api/v1/posts/:id', async (req, res) => {
 		try {
 			const { deletedCount } = await deletePost(req.params.id)
+
 			if (deletedCount === 0) return res.sendStatus(400)
 			return res.status(204).end()
 		} catch (err) {

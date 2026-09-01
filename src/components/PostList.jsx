@@ -1,6 +1,7 @@
-import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Post } from './Post.jsx'
+import { DeletePost } from './DeletePost.jsx'
+import { EditPost } from './EditPost.jsx'
 
 PostList.propTypes = {
 	posts: PropTypes.arrayOf(PropTypes.shape(Post.propTypes)).isRequired,
@@ -8,12 +9,15 @@ PostList.propTypes = {
 
 export function PostList({ posts = [] }) {
 	return (
-		<div>
+		<div className="post-list">
 			{posts.map((post) => (
-				<Fragment key={post._id}>
+				<div className="post-item" key={post._id}>
 					<Post {...post} />
-					<hr />
-				</Fragment>
+					<div className="post-actions">
+						<DeletePost value="Delete" id={post._id} />
+						<EditPost post={post} />
+					</div>
+				</div>
 			))}
 		</div>
 	)

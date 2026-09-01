@@ -18,21 +18,37 @@ export async function listAllPosts(options) {
 }
 
 export async function listPostsByAuthor(author, options) {
-	return await listsPosts({ author }, options)
+	return await listsPosts(
+		{
+			author: {
+				$regex: author,
+				$options: 'i',
+			},
+		},
+		options,
+	)
 }
 
 export async function listPostsByTag(tags, options) {
-	return await listsPosts({ tags }, options)
+	return await listsPosts(
+		{
+			tags: {
+				$regex: tags,
+				$options: 'i',
+			},
+		},
+		options,
+	)
 }
 
 export async function getPostById(postId) {
 	return await Post.findById(postId)
 }
 
-export async function updatePost(postId, { title, author, contents, tags }) {
+export async function updatePost(postId, updates) {
 	return await Post.findOneAndUpdate(
 		{ _id: postId },
-		{ $set: { title, author, contents, tags } },
+		{ $set: updates },
 		{ new: true },
 	)
 }
