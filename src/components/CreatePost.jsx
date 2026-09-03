@@ -52,6 +52,7 @@ export function CreatePost() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		createPostMutation.mutate()
+		setTagError('')
 	}
 
 	return (
