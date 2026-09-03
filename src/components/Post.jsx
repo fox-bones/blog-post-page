@@ -17,7 +17,15 @@ export function Post({ title, contents, author, tags = [] }) {
 					Written by <strong>{author}</strong>
 				</em>
 			)}
-			{tags.length > 0 && <p className="post-tags">{tags.join(', ')}</p>}
+			{tags.length > 0 && (
+				<ul className="post-tags">
+					{tags.map((tag) => (
+						<li key={tag} className="post-tag">
+							{tag}
+						</li>
+					))}
+				</ul>
+			)}
 		</article>
 	)
 }

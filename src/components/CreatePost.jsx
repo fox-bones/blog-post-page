@@ -9,6 +9,7 @@ export function CreatePost() {
 	const [tag, setTag] = useState('')
 	const [tagList, setTagList] = useState([])
 	const [tagError, setTagError] = useState('')
+	const [postSuccess, setPostSuccess] = useState('')
 
 	// Adding tags and handling tag input errors
 	function addTag(tag) {
@@ -40,6 +41,11 @@ export function CreatePost() {
 			setContents('')
 			setTag('')
 			setTagList([])
+
+			setPostSuccess('Post created successfully!')
+			setTimeout(() => {
+				setPostSuccess('')
+			}, 3000)
 		},
 	})
 
@@ -58,7 +64,10 @@ export function CreatePost() {
 					name="create-title"
 					id="create-title"
 					value={title}
-					onChange={(e) => setTitle(e.target.value)}
+					onChange={(e) => {
+						setTitle(e.target.value)
+						setPostSuccess('')
+					}}
 				/>
 			</div>
 			<div className="field">
@@ -68,13 +77,19 @@ export function CreatePost() {
 					name="create-author"
 					id="create-author"
 					value={author}
-					onChange={(e) => setAuthor(e.target.value)}
+					onChange={(e) => {
+						setAuthor(e.target.value)
+						setPostSuccess('')
+					}}
 				/>
 			</div>
 			<textarea
 				className="post-textarea"
 				value={contents}
-				onChange={(e) => setContents(e.target.value)}
+				onChange={(e) => {
+					setContents(e.target.value)
+					setPostSuccess('')
+				}}
 			/>
 			<div className="field tag-row">
 				<label htmlFor="create-tag">Tags: </label>
@@ -86,6 +101,7 @@ export function CreatePost() {
 					onChange={(e) => {
 						setTag(e.target.value)
 						setTagError('')
+						setPostSuccess('')
 					}}
 				/>
 				<button
@@ -114,16 +130,16 @@ export function CreatePost() {
 					</span>
 				))}
 			</div>
-			<div>{tagError && <p className="field-error">{tagError}</p>}</div>
 			<input
 				type="submit"
 				className="btn btn-primary"
 				value={createPostMutation.isPending ? 'Creating...' : 'Create'}
 				disabled={!title || createPostMutation.isPending}
 			/>
-			{createPostMutation.isSuccess ? (
-				<p className="success-note">Post created successfully!</p>
-			) : null}
+			{postSuccess && (
+				<p className="note">{postSuccess}</p>
+			)}
+			<div>{tagError && <p className="note">{tagError}</p>}</div>
 		</form>
 	)
 }

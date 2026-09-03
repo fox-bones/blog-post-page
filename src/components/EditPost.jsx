@@ -132,9 +132,6 @@ export function EditPost({ post }) {
 						</span>
 					))}
 				</div>
-				<div>
-					{tagError && <p className="field-error">{tagError}</p>}
-				</div>
 			</div>
 
 			<div className="edit-post-actions">
@@ -156,6 +153,9 @@ export function EditPost({ post }) {
 				>
 					Cancel
 				</button>
+			</div>
+			<div>
+				{tagError && <p className="note">{tagError}</p>}
 			</div>
 		</form>
 	)
